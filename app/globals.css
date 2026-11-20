@@ -160,9 +160,12 @@
   .hero-foot.l{left:var(--gl)}
   .hero-foot.r{right:var(--gr)}
   .hero-foot .dot{width:7px;height:7px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 0 4px var(--color-accent-soft)}
-  .scroll-cue{display:inline-block;width:14px;height:22px;border:1.5px solid var(--color-ink-3);border-radius:8px;position:relative}
-  .scroll-cue::after{content:"";position:absolute;left:50%;top:4px;width:2px;height:5px;margin-left:-1px;border-radius:2px;background:var(--color-ink-3);animation:cue 1.6s infinite}
-  @keyframes cue{60%{transform:translateY(7px);opacity:0}}
+  .scroll-cue{display:inline-flex;flex-direction:column;align-items:center;width:14px;height:20px;justify-content:center}
+  .scroll-cue i{display:block;width:7px;height:7px;margin-top:-3px;border-top:1.6px solid var(--color-ink-3);border-left:1.6px solid var(--color-ink-3);transform:rotate(45deg);opacity:0;animation:cue 1.5s infinite}
+  .scroll-cue i:nth-child(2){animation-delay:.2s}
+  .scroll-cue i:nth-child(3){animation-delay:.4s}
+  @keyframes cue{0%{opacity:0;translate:0 5px}40%{opacity:1}100%{opacity:0;translate:0 -5px}}
+  .calm .scroll-cue i{animation:none;opacity:.7}
 
   .photo-win{width:190px}
   .photo-win .win-bar{height:26px;font-size:10.5px}
