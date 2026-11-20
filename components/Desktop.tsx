@@ -140,7 +140,7 @@ export function Desktop() {
 
         <Folder stageRef={stageRef} vpRef={vpRef} slotRef={slotRef} />
 
-        <GoLink className="hero-foot l" to="work"><span className="scroll-cue" aria-hidden="true"><i /><i /><i /></span> Scroll</GoLink>
+        <GoLink className="hero-foot mid" to="work"><span className="scroll-cue" aria-hidden="true"><i /><i /><i /></span> Scroll</GoLink>
         <button className="hero-foot r" type="button" aria-label="Change wallpaper" onClick={nextMood}>
           <span className="dot" aria-hidden="true" /><span>Wallpaper: {MOODS[mood][0]}</span>
         </button>
