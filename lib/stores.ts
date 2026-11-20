@@ -45,3 +45,9 @@ export function toast(text: string) {
   clearTimeout(toastT);
   toastT = setTimeout(() => toastStore.set(null), 2600);
 }
+
+/* ---------- contact options sheet ---------- */
+const contactStore = store(false);
+export const useContactOpen = contactStore.use;
+export const openContact = () => contactStore.set(true);
+export const closeContact = () => contactStore.set(false);

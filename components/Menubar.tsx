@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
 import { useStation, type Station } from "@/lib/engine";
 import { GoLink } from "./GoLink";
+import { HelloButton } from "./HelloButton";
 
 const TITLES: Record<Station, string> = { top: "code's desktop", work: "selected-work", about: "about-me.txt" };
 const NAV: [Station, string][] = [["work", "Work"], ["about", "About"]];
@@ -60,7 +61,7 @@ export function Menubar() {
       <div className="mb-right">
         <svg className="wifi" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 6a9.5 9.5 0 0 1 13 0M3.8 8.5a6.2 6.2 0 0 1 8.4 0M6 11a3 3 0 0 1 4 0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /><circle cx="8" cy="13.3" r="1" fill="currentColor" /></svg>
         <span className="mb-time" title="Local time in Kampala"><span>{time}</span></span>
-        <a className="mb-hello" href={`mailto:${site.email}`}>Say hello ↗</a>
+        <HelloButton className="mb-hello">Say hello ↗</HelloButton>
       </div>
     </header>
   );

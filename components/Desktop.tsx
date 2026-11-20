@@ -7,17 +7,18 @@ import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { Folder } from "./Folder";
 import { GoLink } from "./GoLink";
+import { HelloButton } from "./HelloButton";
 import { Mark, WinBar } from "./Icons";
 import { Portrait } from "./Portrait";
 import { Terminal } from "./Terminal";
 
 /** a floating desktop item. dx/dy = direction it flies on scroll, depth = mouse parallax strength */
-function DeskItem({ dx, dy, depth, rot, delay, hideSm, style, children }: {
-  dx: number; dy: number; depth: number; rot: number; delay: number; hideSm?: boolean; style: CSSProperties; children: ReactNode;
+function DeskItem({ dx, dy, depth, rot, delay, hideSm, cls, style, children }: {
+  dx: number; dy: number; depth: number; rot: number; delay: number; hideSm?: boolean; cls?: string; style: CSSProperties; children: ReactNode;
 }) {
   return (
     <div
-      className={`desk-item load-in${hideSm ? " hide-sm" : ""}`}
+      className={`desk-item load-in${hideSm ? " hide-sm" : ""}${cls ? ` ${cls}` : ""}`}
       data-dx={dx} data-dy={dy} data-depth={depth}
       style={{ ...style, "--rot": `${rot}deg`, "--d": `${delay}s` } as CSSProperties}
     >
@@ -84,7 +85,7 @@ export function Desktop() {
           Notes, projects and the things I&apos;m building.
         </div>
 
-        <DeskItem dx={-1.1} dy={-0.5} depth={1.3} rot={-3} delay={0.25} style={{ left: "7%", top: "22%" }}>
+        <DeskItem dx={-1.1} dy={-0.5} depth={1.3} rot={-3} delay={0.25} cls="di-photo" style={{ left: "7%", top: "22%" }}>
           <GoLink className="win photo-win tilt" to="about" style={{ display: "block", textDecoration: "none" }}>
             <WinBar title="hello-world.jpg" />
             <div className="photo-ph"><Portrait sizes="190px" priority /></div>
@@ -104,11 +105,11 @@ export function Desktop() {
           <Terminal />
         </DeskItem>
 
-        <div className="desk-item" ref={slotRef} style={{ right: "14%", top: "23%" }}>
+        <div className="desk-item di-folder" ref={slotRef} style={{ right: "14%", top: "23%" }}>
           <div className="folder-slot"><div className="slot" /><b>Selected work</b><small>{projects.length === 1 ? projects[0].name : `${projects.length} things I'm proud of`}</small></div>
         </div>
 
-        <DeskItem dx={1.1} dy={0.6} depth={1.4} rot={4} delay={0.55} style={{ right: "6%", top: "55%" }}>
+        <DeskItem dx={1.1} dy={0.6} depth={1.4} rot={4} delay={0.55} cls="di-sticky" style={{ right: "6%", top: "55%" }}>
           <div className="sticky-note tilt">make it useful.<br />make it fast.<br /><u>make it feel local.</u></div>
         </DeskItem>
 
@@ -130,7 +131,7 @@ export function Desktop() {
             <GoLink className="aqua" to="work">
               <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h5v5H2zM9 3h5v5H9zM2 10h5v4H2zM9 10h5v4H9z" fill="currentColor" opacity=".9" /></svg>Explore my work
             </GoLink>
-            <a className="aqua ghost" href={`mailto:${site.email}`}>Say hello <svg aria-hidden="true" viewBox="0 0 16 16"><use href="#arrow-ur" /></svg></a>
+            <HelloButton className="aqua ghost">Say hello <svg aria-hidden="true" viewBox="0 0 16 16"><use href="#arrow-ur" /></svg></HelloButton>
           </div>
           <div className="hero-where load-in" style={d(0.65)}>
             <svg aria-hidden="true" viewBox="0 0 16 16"><use href="#pin" /></svg>{site.location}

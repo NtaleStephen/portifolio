@@ -10,12 +10,16 @@ Next.js 16 (App Router) + Tailwind v4, statically exported and deployed to GitHu
 - Local dev: `npm run dev`. To test the Pages build, set `NEXT_PUBLIC_BASE_PATH=/portifolio` and serve `out/` under `/portifolio/`.
 
 ## Design concept
-The site is a macOS-style desktop you travel through by scrolling. Each section is a pinned "station":
+The site opens with a black-and-white **intro** (`components/Intro.tsx`): a Porsche drives in while "Working towards my Porsche funding." is set. It shows once per tab session and is skipped for reduced motion and deep links (`.no-intro` is set before first paint in `app/layout.tsx`).
+
+Then it is a macOS-style desktop you travel through by scrolling. Each section is a pinned "station":
 
 1. **Desktop (hero).** Floating windows, stickers and notes. Mouse parallax (`data-depth`), hover tilt (`.tilt`), and items fly outward on scroll (`data-dx`/`data-dy`).
 2. **Folder dive.** The "Selected work" folder moves to the centre, scales up, the front flap opens, the paper rises, and the view zooms in.
 3. **Finder.** A tunnel of frames zooms out, then a Cover Flow carousel and a Finder list. Scroll position drives the active project; clicking the active project opens its live site (currently Soko, getsoko.co) in a new tab.
 4. **About.** Zoom-in entrance, word-by-word text reveal, polaroid photo.
+
+Every "Say hello" button (menu bar, hero, dock, footer) opens `ContactSheet`: WhatsApp (`wa.me`, number in `content/site.ts`) or email.
 
 Persistent chrome:
 - Menu bar whose title changes per station, with a live clock in Africa/Kampala.
@@ -31,7 +35,7 @@ The scroll engine is `lib/engine.ts`. Each station registers a frame callback wi
 ## Rules to keep
 - Respect `prefers-reduced-motion`: the `.calm` class unpins every stage.
 - Below 860px wide, the `.compact` class unpins the About section.
-- No horizontal scroll at phone width.
+- No horizontal scroll at phone width. The hero re-lays out below 1100px, below 720px, and on short screens (`max-height:560px`); check phone, tablet and landscape after changing it.
 - Static export has no intercepting routes, API routes or server actions. Anything that needs a server (a contact form) has to use an external service.
 - Internal links and `history` URLs must respect `NEXT_PUBLIC_BASE_PATH` (use `next/link` and static image imports).
 
