@@ -4,7 +4,7 @@ import { useStation, type Station } from "@/lib/engine";
 import { MOODS, useMood } from "@/lib/stores";
 
 const TINTS = ["blue", "peach", "lilac", "pink"] as const;
-const TINT: Record<Station, (typeof TINTS)[number]> = { top: "blue", work: "blue", about: "peach", experience: "lilac", contact: "pink" };
+const TINT: Record<Station, (typeof TINTS)[number]> = { top: "blue", work: "blue", about: "peach" };
 
 export function Wallpaper() {
   const station = useStation();

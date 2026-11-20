@@ -9,6 +9,7 @@ export function Footer() {
         <div className="l"><Mark />Made in Kampala with care and a lot of chai.</div>
         <span>© 2026 {site.name}</span>
         <nav aria-label="Elsewhere">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
           <a href={site.github} target="_blank" rel="noopener">GitHub ↗</a>
           <a href={site.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
           <GoLink to="top">Back to top ↑</GoLink>

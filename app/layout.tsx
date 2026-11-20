@@ -14,8 +14,8 @@ const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: "ital
 export const metadata: Metadata = {
   // TODO: set NEXT_PUBLIC_SITE_URL to the real domain before deploying
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-  title: { default: "Code's Desktop", template: "%s · Code's Desktop" },
-  description: "Stephen Ntale (Code): computer science student at KIU and founder building software for African SMEs.",
+  title: "Stephen Ntale (Code crafter)",
+  description: "Stephen Ntale, aka Code crafter: entrepreneur, startup founder at Codevertex, UI/UX designer and AI developer working in ecommerce. Based in Kampala, Uganda.",
 };
 
 export const viewport: Viewport = { viewportFit: "cover", themeColor: "#F3F6FB" };

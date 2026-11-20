@@ -1,10 +1,10 @@
-// Replace these placeholders with your real details.
 export const site = {
   name: "Stephen Ntale",
-  handle: "Code",
+  alias: "Code crafter",
+  company: "Codevertex",
+  location: "Kampala, Uganda",
   timeZone: "Africa/Kampala",
-  email: "hello@yourdomain.com",
-  github: "https://github.com/",
-  linkedin: "https://www.linkedin.com/",
-  skills: ["Full-stack web apps", "Product strategy", "Database design", "APIs & payments"],
+  email: "ntalestephen19@gmail.com",
+  github: "https://github.com/NtaleStephen",
+  linkedin: "https://www.linkedin.com/in/ntale-stephen-393511377",
 };

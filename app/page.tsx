@@ -1,9 +1,7 @@
 import { About } from "@/components/About";
-import { Contact } from "@/components/Contact";
 import { Desktop } from "@/components/Desktop";
 import { Dock } from "@/components/Dock";
 import { Engine } from "@/components/Engine";
-import { ExperienceLog } from "@/components/ExperienceLog";
 import { Footer } from "@/components/Footer";
 import { Menubar } from "@/components/Menubar";
 import { Wallpaper } from "@/components/Wallpaper";
@@ -18,8 +16,6 @@ export default function Home() {
         <Desktop />
         <Work />
         <About />
-        <ExperienceLog />
-        <Contact />
       </main>
       <Footer />
       <Dock />

@@ -2,14 +2,15 @@
 
 import { useRef } from "react";
 import { clamp, ease, isCompact, progressOf, reducedMotion, seg, useFrame } from "@/lib/engine";
-import { GoLink } from "./GoLink";
-import { Mark, MiniFolder, Portrait, WinBar } from "./Icons";
+import { site } from "@/content/site";
+import { Mark, MiniFolder, WinBar } from "./Icons";
+import { Portrait } from "./Portrait";
 import { TypeHeading } from "./TypeHeading";
 
 const PARAGRAPHS = [
-  "I'm Code, a computer science student at Kampala International University and a founder building software for small businesses across Africa.",
-  "I like problems where good software changes how a shop, a farm or a classroom runs day to day. I care as much about how a product feels on a cheap phone as about the database behind it.",
-  "Between lectures I design, build and ship. I finish my B.Sc. in August 2027.",
+  `I'm ${site.name}, also known as ${site.alias}: an entrepreneur and startup founder based in ${site.location}.`,
+  `I'm the founder behind ${site.company}, and I work across UI/UX design, AI development and ecommerce, shaping ideas from the first sketch into products people can use.`,
+  "One thing I've built is Soko, an online store builder at getsoko.co that helps businesses launch their shop in minutes.",
 ];
 
 /** paragraph split into words so scroll can reveal them one by one */
@@ -52,20 +53,17 @@ export function About() {
             <div className="polaroid-wrap">
               <figure className="polaroid tilt" style={{ margin: 0 }}>
                 <span className="tape" aria-hidden="true" />
-                <div className="pic"><Portrait variant="wide" /></div>
+                <div className="pic"><Portrait sizes="332px" /></div>
                 <figcaption>the human behind the commits :)</figcaption>
               </figure>
               <div className="avatar-badge" aria-hidden="true"><Mark /></div>
-              <div className="loc"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#pin" /></svg>Kampala, Uganda</div>
-              <GoLink className="resume-note tilt" to="experience">
-                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="#doc" /></svg><span>the longer story<b>resume.pdf ↗</b></span>
-              </GoLink>
+              <div className="loc"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#pin" /></svg>{site.location}</div>
             </div>
             <div className="win textwin">
               <WinBar title="a-little-about-me.txt" />
               <div className="textwin-body" ref={textRef}>
                 <div className="eyebrow">02 / About</div>
-                <TypeHeading id="aboutTitle" station="about" text={"Student by day.\nFounder by night."} />
+                <TypeHeading id="aboutTitle" station="about" text={"Founder, designer,\nand code crafter."} />
                 {PARAGRAPHS.map((t) => <Reveal key={t} text={t} />)}
                 <div className="sign"><span className="hand">always shipping, always learning.</span><Mark /></div>
               </div>

@@ -6,11 +6,12 @@ import { WinBar } from "./Icons";
 
 // [text, token class]
 const PARTS: [string, string][] = [
-  ["// a little about what I do", "tok-c"], ["\n", ""],
-  ["const", "tok-k"], [" code = {\n  focus: ", ""],
-  ["'software for African SMEs'", "tok-s"], [",\n  fuel: ", ""],
-  ["'curiosity + chai'", "tok-s"], [",\n  status: ", ""],
-  ["'shipping something'", "tok-s"], ["\n}", ""],
+  ["// who I am", "tok-c"], ["\n", ""],
+  ["const", "tok-k"], [" code = {\n  name: ", ""],
+  ["'Stephen Ntale'", "tok-s"], [",\n  founder: ", ""],
+  ["'Codevertex'", "tok-s"], [",\n  does: ", ""],
+  ["'UI/UX, AI, ecommerce'", "tok-s"], [",\n  base: ", ""],
+  ["'Kampala, UG'", "tok-s"], ["\n}", ""],
 ];
 const TOTAL = PARTS.reduce((n, [t]) => n + t.length, 0);
 
@@ -29,7 +30,7 @@ export function Terminal() {
   let left = n ?? TOTAL;
   return (
     <div className="win term tilt">
-      <WinBar title="currently-building.ts" />
+      <WinBar title="code-crafter.ts" />
       <pre>
         {PARTS.map(([text, cls], i) => {
           const shown = text.slice(0, Math.max(0, left));

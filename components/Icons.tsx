@@ -42,19 +42,3 @@ export function MiniFolder() {
     </svg>
   );
 }
-
-/** placeholder portrait until a real photo goes in */
-export function Portrait({ variant = "a" }: { variant?: "a" | "wide" | "icon" }) {
-  const id = `sky-${variant}`;
-  return (
-    <svg viewBox="0 0 200 210" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-label="Placeholder portrait">
-      <defs><linearGradient id={id} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#F7D9B5" /><stop offset=".55" stopColor="#F2B98A" /><stop offset=".56" stopColor="#7FA9C9" /><stop offset="1" stopColor="#4E7FA8" /></linearGradient></defs>
-      <rect width="200" height="210" fill={`url(#${id})`} />
-      <path d="M0 118 C40 98 70 112 100 104 S160 92 200 108 V120 H0z" fill="#6E8E6A" opacity=".85" />
-      <circle cx="150" cy="60" r="18" fill="#FFF1D6" opacity=".9" />
-      <g fill="#2B2F3F"><circle cx="100" cy="96" r="30" /><path d="M42 210c4-46 28-72 58-72s54 26 58 72z" /></g>
-      <path d="M74 86c4-22 46-28 54 0-10-8-42-10-54 0z" fill="#1A1D28" />
-      {variant === "wide" && <text x="100" y="196" textAnchor="middle" fontFamily="Inter,sans-serif" fontSize="9" fill="#fff" opacity=".75">replace with your photo</text>}
-    </svg>
-  );
-}

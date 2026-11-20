@@ -4,9 +4,11 @@ import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { ease, finePointer, mouse, progressOf, reducedMotion, requestRender, seg, useFrame } from "@/lib/engine";
 import { MOODS, nextMood, useMood } from "@/lib/stores";
 import { projects } from "@/content/projects";
+import { site } from "@/content/site";
 import { Folder } from "./Folder";
 import { GoLink } from "./GoLink";
-import { Mark, Portrait, WinBar } from "./Icons";
+import { Mark, WinBar } from "./Icons";
+import { Portrait } from "./Portrait";
 import { Terminal } from "./Terminal";
 
 /** a floating desktop item. dx/dy = direction it flies on scroll, depth = mouse parallax strength */
@@ -85,13 +87,13 @@ export function Desktop() {
         <DeskItem dx={-1.1} dy={-0.5} depth={1.3} rot={-3} delay={0.25} style={{ left: "7%", top: "22%" }}>
           <GoLink className="win photo-win tilt" to="about" style={{ display: "block", textDecoration: "none" }}>
             <WinBar title="hello-world.jpg" />
-            <div className="photo-ph"><Portrait /></div>
+            <div className="photo-ph"><Portrait sizes="190px" priority /></div>
             <div className="photo-cap"><span>the person behind the code</span><span>↗</span></div>
           </GoLink>
         </DeskItem>
 
         <DeskItem dx={-0.6} dy={-1.1} depth={2} rot={5} delay={0.35} hideSm style={{ left: "21%", top: "11%" }}>
-          <div className="name-sticker tilt"><b>HELLO</b><small>my name is</small><span>Code!</span></div>
+          <div className="name-sticker tilt"><b>HELLO</b><small>my name is</small><span style={{ fontSize: 21 }}>{site.alias}</span></div>
         </DeskItem>
 
         <DeskItem dx={0.9} dy={-1} depth={0.8} rot={-6} delay={0.5} hideSm style={{ right: "24%", top: "15%" }}>
@@ -103,15 +105,11 @@ export function Desktop() {
         </DeskItem>
 
         <div className="desk-item" ref={slotRef} style={{ right: "14%", top: "23%" }}>
-          <div className="folder-slot"><div className="slot" /><b>Selected work</b><small>{projects.length} things I&apos;m proud of</small></div>
+          <div className="folder-slot"><div className="slot" /><b>Selected work</b><small>{projects.length === 1 ? projects[0].name : `${projects.length} things I'm proud of`}</small></div>
         </div>
 
         <DeskItem dx={1.1} dy={0.6} depth={1.4} rot={4} delay={0.55} style={{ right: "6%", top: "55%" }}>
           <div className="sticky-note tilt">make it useful.<br />make it fast.<br /><u>make it feel local.</u></div>
-        </DeskItem>
-
-        <DeskItem dx={0.7} dy={1.1} depth={1} rot={-6} delay={0.65} hideSm style={{ right: "27%", top: "72%" }}>
-          <GoLink className="doc-ico tilt" to="experience"><div className="sheet"><i /><i /><i /><i /></div>resume.pdf</GoLink>
         </DeskItem>
 
         <DeskItem dx={-0.2} dy={1.2} depth={2.2} rot={-4} delay={0.7} hideSm style={{ left: "37%", top: "83%" }}>
@@ -119,23 +117,23 @@ export function Desktop() {
         </DeskItem>
 
         <div className="hero-center" ref={centerRef}>
-          <div className="kicker load-in" style={d(0.2)}>Software engineer &amp; founder</div>
+          <div className="kicker load-in" style={d(0.2)}>Entrepreneur &amp; startup founder</div>
           <h1 className="hero-h1 load-in" style={d(0.3)}>
-            hey, I&apos;m{" "}
+            Stephen{" "}
             <span className="name">
-              code.
+              Ntale.
               <svg className="uline" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 13C70 6 160 4 296 8M30 17c60-4 140-6 230-4" /></svg>
             </span>
           </h1>
-          <p className="hero-sub load-in" style={d(0.45)}>I build software for African businesses,<br />from first sketch to shipped product.</p>
+          <p className="hero-sub load-in" style={d(0.45)}>aka {site.alias}, founder of {site.company}.<br />UI/UX designer · AI developer · ecommerce.</p>
           <div className="hero-actions load-in" style={d(0.55)}>
             <GoLink className="aqua" to="work">
               <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h5v5H2zM9 3h5v5H9zM2 10h5v4H2zM9 10h5v4H9z" fill="currentColor" opacity=".9" /></svg>Explore my work
             </GoLink>
-            <GoLink className="aqua ghost" to="contact">Say hello <svg aria-hidden="true" viewBox="0 0 16 16"><use href="#arrow-ur" /></svg></GoLink>
+            <a className="aqua ghost" href={`mailto:${site.email}`}>Say hello <svg aria-hidden="true" viewBox="0 0 16 16"><use href="#arrow-ur" /></svg></a>
           </div>
           <div className="hero-where load-in" style={d(0.65)}>
-            <svg aria-hidden="true" viewBox="0 0 16 16"><use href="#pin" /></svg>Kampala, Uganda · building for the whole continent
+            <svg aria-hidden="true" viewBox="0 0 16 16"><use href="#pin" /></svg>{site.location}
           </div>
         </div>
 

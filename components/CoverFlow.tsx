@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { Project } from "@/content/projects";
 import { isCompact, useResize } from "@/lib/engine";
-import { Mock } from "./Mock";
+import Image from "next/image";
 
 export function CoverFlow({ projects, active, onCard, onOpen }: {
   projects: Project[];
@@ -39,9 +39,9 @@ export function CoverFlow({ projects, active, onCard, onOpen }: {
             onClick={() => (k === 0 ? onOpen(p) : onCard(i))}
             onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(p); } }}
           >
-            <div className="shot"><Mock project={p} /></div>
+            <div className="shot relative"><Image src={p.shot} alt={`${p.name} website`} fill sizes="380px" className="object-cover object-left-top" /></div>
             <span className="flow-open">
-              {p.status === "Sample" ? "Explore project" : "Read the case study"} <svg width="12" height="12" aria-hidden="true" viewBox="0 0 16 16"><use href="#arrow-ur" /></svg>
+              Visit {new URL(p.url).host} <svg width="12" height="12" aria-hidden="true" viewBox="0 0 16 16"><use href="#arrow-ur" /></svg>
             </span>
           </div>
         );

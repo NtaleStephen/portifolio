@@ -1,17 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { getProject, projects as allProjects, type Filter, type Project } from "@/content/projects";
+import { useRef, useState } from "react";
+import { projects, type Project } from "@/content/projects";
 import {
-  BROWSE_A, BROWSE_B, ease, goTo, isCompact, progressOf, reducedMotion, resize, seg, stageTop, useFrame,
+  BROWSE_A, BROWSE_B, ease, isCompact, progressOf, reducedMotion, seg, stageTop, useFrame,
 } from "@/lib/engine";
-import { CaseStudySheet } from "./CaseStudySheet";
 import { Finder } from "./Finder";
 import { MiniFolder } from "./Icons";
 import { TypeHeading } from "./TypeHeading";
-
-// inlined at build time; pushState takes the raw browser URL, so the Pages base path must be added by hand
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 /** station 2: a tunnel of frames zooms out into the Finder; scroll position drives the active project */
 export function Work() {
@@ -19,14 +15,11 @@ export function Work() {
   const vpRef = useRef<HTMLDivElement>(null);
   const camRef = useRef<HTMLDivElement>(null);
   const tunnelRef = useRef<HTMLDivElement>(null);
-  const [filter, setFilter] = useState<Filter>("All projects");
   const [active, setActive] = useState(0);
-  const [sheet, setSheet] = useState<string | null>(null);
   const activeRef = useRef(active);
   activeRef.current = active;
 
-  const visible = allProjects.filter((p) => filter === "All projects" || p.kind === filter);
-  const n = visible.length;
+  const n = projects.length;
 
   useFrame(() => {
     if (reducedMotion()) return;
@@ -54,14 +47,6 @@ export function Work() {
     }
   });
 
-  // a new filter changes the stage height: re-measure and jump back to the start of browsing
-  const firstFilter = useRef(true);
-  useEffect(() => {
-    if (firstFilter.current) { firstFilter.current = false; return; }
-    resize();
-    goTo("work", true);
-  }, [filter]);
-
   // map a project index to a scroll position inside the pinned finder
   const pick = (i: number) => {
     if (reducedMotion()) { setActive(i); return; }
@@ -69,22 +54,7 @@ export function Work() {
     const total = stage.offsetHeight - innerHeight;
     scrollTo({ top: stageTop(stage) + total * (BROWSE_A + ((BROWSE_B - BROWSE_A) * (i + 0.5)) / n), behavior: "smooth" });
   };
-  // The sheet lives at the real /projects/[slug]/ URL. Static export has no intercepting routes,
-  // so push that URL ourselves; Back, Forward, Close and Escape all go through history.
-  const open = (p: Project) => {
-    history.pushState({ sheet: p.slug }, "", `${BASE_PATH}/projects/${p.slug}/`);
-    setSheet(p.slug);
-  };
-  const close = useCallback(() => {
-    if (history.state?.sheet) history.back();
-    else setSheet(null);
-  }, []);
-  useEffect(() => {
-    const onPop = () => setSheet(history.state?.sheet ?? null);
-    addEventListener("popstate", onPop);
-    return () => removeEventListener("popstate", onPop);
-  }, []);
-  const sheetProject = sheet ? getProject(sheet) : undefined;
+  const open = (p: Project) => window.open(p.url, "_blank", "noopener,noreferrer");
 
   return (
     <section
@@ -107,21 +77,18 @@ export function Work() {
         <div className="cam" ref={camRef}>
           <div className="sec-head">
             <div className="eyebrow">01 / Selected work</div>
-            <TypeHeading className="sec-h2" id="workTitle" station="work" text="A few things I've built." />
-            <p className="sec-sub">Problems worth solving, and the software I wrote to solve them.</p>
+            <TypeHeading className="sec-h2" id="workTitle" station="work" text="What I'm building." />
+            <p className="sec-sub">Soko, an online store builder for growing businesses.</p>
             <span className="side-note hand">a peek inside my project folder ↗</span>
           </div>
           <Finder
-            filter={filter}
-            onFilter={(f) => { setFilter(f); setActive(0); activeRef.current = 0; }}
-            projects={visible}
+            projects={projects}
             active={Math.min(active, Math.max(0, n - 1))}
             onPick={pick}
             onOpen={open}
           />
         </div>
       </div>
-      {sheetProject && <CaseStudySheet project={sheetProject} onClose={close} />}
     </section>
   );
 }

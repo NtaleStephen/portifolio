@@ -43,7 +43,7 @@ export const mouse = { x: 0, y: 0 };
 export const BROWSE_A = 0.16, BROWSE_B = 0.84;
 
 /* ---------- stations ---------- */
-export type Station = "top" | "work" | "about" | "experience" | "contact";
+export type Station = "top" | "work" | "about";
 let station: Station = "top";
 const stationSubs = new Set<() => void>();
 const subscribeStation = (cb: () => void) => { stationSubs.add(cb); return () => { stationSubs.delete(cb); }; };
@@ -108,7 +108,6 @@ export function goTo(name: Station, instant = false) {
   if (!reduce) {
     if (name === "work") top += (sec.offsetHeight - innerHeight) * (BROWSE_A + 0.005);
     if (name === "about" && !compact) top += (sec.offsetHeight - innerHeight) * 0.5;
-    if (name === "experience" || name === "contact") top -= 20;
   }
   scrollTo({ top: Math.max(0, top), behavior: reduce || instant ? "auto" : "smooth" });
 }
