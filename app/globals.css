@@ -398,40 +398,38 @@
   .hello-opt .go { color: var(--color-ink-3); flex: none; }
 }
 
-/* ---------- intro: a Porsche drives in, black and white ---------- */
+/* ---------- intro: a Porsche drives across, the line is written in its wake (black and white) ---------- */
 @layer components {
   /* hold the hero's load-in animations until the intro is gone */
   html:not(.no-intro) .load-in { animation-play-state: paused; }
   .no-intro .intro { display: none; }
 
-  .intro { position: fixed; inset: 0; z-index: 200; background: #ececec; color: #0a0a0a; display: grid; grid-template-rows: auto 1fr auto; padding: calc(18px + env(safe-area-inset-top, 0px)) max(24px, env(safe-area-inset-right, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)) max(24px, env(safe-area-inset-left, 0px)); overflow: hidden; transition: opacity .7s ease, transform .7s ease; }
-  .intro.leaving { opacity: 0; transform: scale(1.02); pointer-events: none; }
-  .intro-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; animation: intro-fade .9s .2s both; }
+  .intro { position: fixed; inset: 0; z-index: 200; background: #ececec; color: #0a0a0a; overflow: hidden; transition: opacity .6s ease; }
+  .intro.leaving { opacity: 0; pointer-events: none; }
+  .intro-bar { position: absolute; left: max(24px, env(safe-area-inset-left, 0px)); right: max(24px, env(safe-area-inset-right, 0px)); top: calc(18px + env(safe-area-inset-top, 0px)); z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; animation: intro-fade .9s .2s both; }
+  .intro-foot { top: auto; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
   .intro-brand { display: inline-flex; align-items: center; gap: 10px; }
   .intro-brand svg { width: 26px; height: 18px; }
   .intro-skip { background: none; border: 0; cursor: pointer; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; padding: 8px 0; border-bottom: 1px solid currentColor; }
   .intro-skip:focus-visible { outline-color: #0a0a0a; }
-  .intro-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(8px, 3vh, 36px); min-height: 0; }
-  .intro-h { font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, min(7.2vw, 11vh), 96px); line-height: 1.02; letter-spacing: -.055em; text-align: center; margin: 0; max-width: 14em; text-wrap: balance; }
-  .intro-h .w { display: inline-block; opacity: 0; transform: translateY(.4em); filter: blur(10px); animation: intro-word .9s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(1.7s + var(--i) * .2s); }
-  .intro-h em { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -.02em; }
-  .intro-car { position: relative; width: min(92vw, 860px, calc((100svh - 230px) * 2.54)); aspect-ratio: 736 / 290; }
-  .intro-road { position: absolute; left: -60vw; right: -60vw; top: 75%; height: 1px; background: #0a0a0a; transform: scaleX(0); transform-origin: 100% 50%; animation: intro-road 1.6s .2s cubic-bezier(.6,.1,.2,1) forwards; }
-  .intro-drive { position: absolute; inset: 0; animation: intro-drive 3.4s .3s cubic-bezier(.12,.8,.2,1) both; }
-  .intro-drive::before, .intro-drive::after { content: ""; position: absolute; left: 96%; height: 1px; width: 70vw; background: linear-gradient(to left, transparent, #0a0a0a); opacity: 0; animation: intro-streak 3.4s .3s ease-out both; }
-  .intro-drive::before { top: 52%; }
-  .intro-drive::after { top: 66%; width: 50vw; }
-  .intro-drive img { width: 100%; height: 100%; object-fit: contain; transform-origin: 50% 85%; animation: intro-pitch 3.4s .3s ease-in-out both; -webkit-mask-image: radial-gradient(ellipse 72% 80% at 50% 52%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 72% 80% at 50% 52%, #000 62%, transparent 100%); }
+
+  /* one lane across the middle of the screen: road, words and car share it */
+  .intro-lane { --cw: min(92vw, 860px, calc((100svh - 230px) * 2.54)); position: absolute; left: 0; right: 0; top: 50%; height: calc(var(--cw) * 290 / 736); transform: translateY(-50%); }
+  .intro-road { position: absolute; left: 0; right: 0; top: 75%; height: 1px; background: #0a0a0a; transform: scaleX(0); transform-origin: 0 50%; animation: intro-road 1.2s .15s cubic-bezier(.6,.1,.2,1) forwards; }
+  .intro-text { --r: 0px; position: absolute; left: 50%; bottom: 25%; transform: translateX(-50%); margin: 0; width: max-content; max-width: 90vw; font-family: var(--font-display); font-weight: 600; font-size: clamp(28px, 4.9vw, 80px); line-height: 1.04; letter-spacing: -.05em; text-align: center; text-wrap: balance; padding: 0 .15em .12em; -webkit-mask-image: linear-gradient(to right, #000 calc(var(--r) - 28px), transparent var(--r)); mask-image: linear-gradient(to right, #000 calc(var(--r) - 28px), transparent var(--r)); }
+  .intro-text em { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -.02em; }
+  .intro-car { position: absolute; left: 0; top: 0; width: var(--cw); height: 100%; transform: translate3d(-110vw, 0, 0); will-change: transform; }
+  /* the photo faces left; mirror it so the car drives in reading direction */
+  .intro-car .flip { position: relative; width: 100%; height: 100%; transform: scaleX(-1); }
+  .intro-car img { width: 100%; height: 100%; object-fit: contain; -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 76%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 76%, transparent 100%); }
   @keyframes intro-fade { from { opacity: 0; } }
-  @keyframes intro-word { to { opacity: 1; transform: none; filter: none; } }
   @keyframes intro-road { to { transform: scaleX(1); } }
-  @keyframes intro-drive { from { transform: translate3d(calc(50vw + 100%), 0, 0); } }
-  @keyframes intro-pitch { 0%, 100% { transform: rotate(0); } 18% { transform: rotate(.5deg); } 72% { transform: rotate(-.5deg); } }
-  @keyframes intro-streak { 0% { opacity: 0; } 15% { opacity: .55; } 70% { opacity: 0; } 100% { opacity: 0; } }
+  @media (max-width: 860px) {
+    .intro-lane { --cw: min(128vw, calc((100svh - 230px) * 2.54)); }
+    .intro-text { font-size: clamp(26px, 8.4vw, 44px); max-width: 86vw; }
+  }
   @media (max-width: 720px) {
-    .intro { padding-inline: 18px; }
-    .intro-car { width: min(128vw, calc((100svh - 230px) * 2.54)); }
-    .intro-h { font-size: clamp(32px, min(11vw, 9vh), 56px); }
+    .intro-bar { left: 18px; right: 18px; }
     .intro-foot span:last-child { display: none; }
   }
 }

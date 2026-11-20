@@ -10,7 +10,7 @@ Next.js 16 (App Router) + Tailwind v4, statically exported and deployed to GitHu
 - Local dev: `npm run dev`. To test the Pages build, set `NEXT_PUBLIC_BASE_PATH=/portifolio` and serve `out/` under `/portifolio/`.
 
 ## Design concept
-The site opens with a black-and-white **intro** (`components/Intro.tsx`): a Porsche drives in while "Working towards my Porsche funding." is set. It shows once per tab session and is skipped for reduced motion and deep links (`.no-intro` is set before first paint in `app/layout.tsx`).
+The site opens with a black-and-white **intro** (`components/Intro.tsx`) on every load: a Porsche (the photo, mirrored so it drives left to right) crosses the screen on a road line and the line "Working towards my Porsche funding." is written in its wake, then the desktop opens. A frame loop locks the text mask to the car's tail. Skipped only for reduced motion (`.no-intro` is set before first paint in `app/layout.tsx`).
 
 Then it is a macOS-style desktop you travel through by scrolling. Each section is a pinned "station":
 

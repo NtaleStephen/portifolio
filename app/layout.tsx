@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { viewportFit: "cover", themeColor: "#F3F6FB" };
 
 // set .calm / .compact / .no-intro before first paint so nothing flashes
-const preflight = `(function(){var d=document.documentElement;var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;if(rm)d.classList.add('calm');try{if(rm||location.hash||sessionStorage.getItem('intro-seen'))d.classList.add('no-intro')}catch(e){if(rm||location.hash)d.classList.add('no-intro')};if(innerWidth<860||innerHeight<560)d.classList.add('compact')})()`;
+const preflight = `(function(){var d=document.documentElement;var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;if(rm){d.classList.add('calm');d.classList.add('no-intro')};if(innerWidth<860||innerHeight<560)d.classList.add('compact')})()`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
