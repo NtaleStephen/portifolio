@@ -340,8 +340,15 @@
   @media (max-width:720px){
     .photo-win .win-title{display:none}
   }
-  @media (max-width:720px) and (max-height:740px){
-    .di-photo,.di-sticky{display:none}
+  /* shorter phones: keep the photo (smaller, no caption), drop only the sticky note */
+  @media (max-width:720px) and (max-height:760px){
+    .di-sticky{display:none}
+    .photo-win{width:92px}
+    .photo-cap{display:none}
+    .di-photo{top:104px!important}
+  }
+  @media (max-width:720px) and (max-height:700px){
+    .hero-center{top:60%}
   }
   /* landscape phones and other short screens: keep the headline block, drop the clutter */
   @media (max-height:560px){
